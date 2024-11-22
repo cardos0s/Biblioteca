@@ -1,42 +1,29 @@
-# Biblioteca
-Esta aplicação desktop tem como principal objetivo simplificar e inovar os procedimentos manuais da biblioteca, abrangendo desde a busca de livros até o gerenciamento de empréstimos, organização, devoluções e doações. Desenvolvida em C#, foi construida para ser administrada pela bibliotecaria, consumindo constantemente o banco de dados em MySQL!
-## Tecnologias Utilizadas
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=sidorares&url=https://github.com/sidorares/named-placeholders&title=named-placeholders&language=&tags=github&category=software)
 
-- **Windows Forms:** Plataforma de desenvolvimento para a criação de aplicativos Windows desktop. Oferece uma interface gráfica intuitiva e ferramentas para o desenvolvimento de interfaces de usuário. 
-- **mysql.data:** Um conector que permite a comunicação entre aplicativos Windows e bancos de dados MySQL. Facilita a integração do aplicativo desktop com o banco de dados utilizado pelo Sistema de Gerenciamento de Bibliotecas.
+[![NPM](https://nodei.co/npm/named-placeholders.png?downloads=true&stars=true)](https://nodei.co/npm/named-placeholders/)
 
-## Funcionalidades Principais
+[![CI](https://github.com/mysqljs/named-placeholders/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/mysqljs/named-placeholders/actions/workflows/ci.yml)
 
-### Controle de Acervo
+# named-placeholders
 
-- Cadastro e controle preciso de livros no acervo.
-- Atualização de informações, como título, situação, sinopse etc.
+compiles "select foo where foo.id = :bar and foo.baz < :baz" into "select foo where foo.id = ? and foo.baz < ?" + ["bar", "baz"]
 
-### Gestão de Empréstimos
+## usage
 
-- Registros de usuários, incluindo alunos e professores.
-- Histórico de empréstimos por leitor.
-- Notificações de datas de devolução.
+```sh
+npm install named-placeholders
+```
 
-### Sistema de Fila de Espera
+see [this mysql2 discussion](https://github.com/sidorares/node-mysql2/issues/117)
 
-- Possibilidade de entrada na fila de espera para livros emprestados.
+```js
+var mysql = require('mysql');
+var toUnnamed = require('named-placeholders')();
 
-### Explorador de Livros
+var q = toUnnamed('select 1+:test', { test: 123});
+mysql.createConnection().query(q[0], q[1]);
+```
 
-- Ferramenta de pesquisa para busca por livros, com filtros por tags, títulos, anos, gêneros e autores.
+## credits
 
-### Perfil do Leitor
-
-- Registros individuais de usuários, incluindo histórico de livros alugados, pendentes e eventuais multas
-
-### Integração Desktop e Web
-
-## Como Contribuir
-
-1. Faça um fork do repositório.
-2. Crie uma branch para sua contribuição: `git checkout -b nome-da-sua-feature`.
-3. Faça commit das suas alterações: `git commit -m 'Adiciona nova funcionalidade'`.
-4. Faça push para a branch: `git push origin nome-da-sua-feature`.
-5. Abra um Pull Request.
-
+parser is based on @mscdex code of his excellent [node-mariasql](https://github.com/mscdex/node-mariasql) library
